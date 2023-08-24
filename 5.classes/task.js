@@ -12,17 +12,17 @@ class PrintEditionItem {
 			// this.newState = state * 1.5;
 		};
 	}
-	set stateBook(newState) {
+	set state(newState) {
 		if (newState < 0) {
-			this.state = 0;
+			this._state = 0;
 		} else if (newState > 100) {
-			this.state = 100;
+			this._state = 100;
 		} else {
-			this.state = newState;
+			this._state = newState;
 		}
 	}
-	get stateBook() {
-		return this.state;
+	get state() {
+		return this._state;
 	}
 }
 
@@ -39,7 +39,7 @@ class Book extends PrintEditionItem {
 		super(name, releaseDate, pagesCount);
     this.author = author;
 		// this.state = 100;
-		this.type = "Book";
+		this.type = "book";
 	}
 }
 
@@ -109,24 +109,15 @@ class Library {
 		}
 
 		this.findBookBy = function(type, value) {
-			for (let i = 0; i < this.books.length; i++) {
-				let book = this.books[i];
-				if (book[type] === value) {
-					return book;
-				}
-			}
-			return null;
+			const findResult = this.books.find((item) => item[type] === value);
+      return findResult || null;
 		}
 
 		this.giveBookByName = function(bookName) {
-			for (let i = 0; i < this.books.length; i++) {
-            let book = this.books[i];
-            if (book.name === bookName) {
-                this.books.splice(i, 1);
-                return book;
-            }
-        }
-        return null;
+			const book = this.findBookBy("name", bookName);
+      if (!book) return null;
+      this.books = this.books.filter((item) => item.name !== bookName);
+      return book;
 		}
 	}
 }
