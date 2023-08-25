@@ -8,7 +8,7 @@ class PrintEditionItem {
 		this.state = 100;
 		this.type = null;
 		this.fix = function() {
-      this.state *= 1.5;
+			this.state *= 1.5;
 			// this.newState = state * 1.5;
 		};
 	}
@@ -37,7 +37,7 @@ class Magazine extends PrintEditionItem {
 class Book extends PrintEditionItem {
 	constructor(author, name, releaseDate, pagesCount) {
 		super(name, releaseDate, pagesCount);
-    this.author = author;
+		this.author = author;
 		// this.state = 100;
 		this.type = "book";
 	}
@@ -110,14 +110,14 @@ class Library {
 
 		this.findBookBy = function(type, value) {
 			const findResult = this.books.find((item) => item[type] === value);
-      return findResult || null;
+			return findResult || null;
 		}
 
 		this.giveBookByName = function(bookName) {
 			const book = this.findBookBy("name", bookName);
-      if (!book) return null;
-      this.books = this.books.filter((item) => item.name !== bookName);
-      return book;
+			if (!book) return null;
+			this.books = this.books.filter((item) => item.name !== bookName);
+			return book;
 		}
 	}
 }
@@ -164,28 +164,25 @@ class Student {
 		this.marks = {};
 
 		this.addMark = function(value, subject) {
+			if (!this.marks[subject]) {
+				this.marks[subject] = [];
+			}
 			if (value >= 2 && value <= 5) {
-				if (this.marks[subject]) {
-          this.marks[subject].push(value);
-        } else {
-          this.marks[subject] = [value];
-        }
+				this.marks[subject].push(value);
 			}
 		}
 
 		this.getAverageBySubject = function(subject) {
-
-			if (this.marks[subject] !== subject) {
+			if (!this.marks[subject]) {
 				return 0;
 			} else {
-				this.marks[subject].reduse((acc, item, index, arr) => {
+				return this.marks[subject].reduce((acc, item, index, arr) => {
 					acc += item;
-					if (index === this.marks[subject].length - 1) {
-						return acc / this.marks[subject].length;
+					if (index === arr.length - 1) {
+						return acc / arr.length;
 					}
 					return acc;
 				}, 0);
-
 			}
 		}
 
@@ -193,7 +190,7 @@ class Student {
 			let keys = Object.keys(this.marks);
 			let sum = 0;
 			for (let i = 0; i < keys.length; i++) {
-				sum = sum + this.getAverageBySubject(i);
+				sum += this.getAverageBySubject(keys[i]);
 			}
 			return sum / keys.length;
 		}
