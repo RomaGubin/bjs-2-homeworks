@@ -164,12 +164,14 @@ class Student {
 		this.marks = {};
 
 		this.addMark = function(value, subject) {
-			if (!this.marks[subject]) {
-				this.marks[subject] = [];
-			}
 			if (value >= 2 && value <= 5) {
-				this.marks[subject].push(value);
-			}
+        if (!this.marks[subject]) {
+          this.marks[subject] = [];
+        }
+        this.marks[subject].push(value);
+      } else {
+        return;
+      }
 		}
 
 		this.getAverageBySubject = function(subject) {
@@ -192,7 +194,7 @@ class Student {
 			for (let i = 0; i < keys.length; i++) {
 				sum += this.getAverageBySubject(keys[i]);
 			}
-			return sum / keys.length;
+			return sum / keys.length || 0;
 		}
 
 	}
