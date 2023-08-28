@@ -9,7 +9,6 @@ class PrintEditionItem {
 		this.type = null;
 		this.fix = function() {
 			this.state *= 1.5;
-			// this.newState = state * 1.5;
 		};
 	}
 	set state(newState) {
@@ -29,7 +28,6 @@ class PrintEditionItem {
 class Magazine extends PrintEditionItem {
 	constructor(name, releaseDate, pagesCount) {
 		super(name, releaseDate, pagesCount);
-		// this.state = 100;
 		this.type = "magazine";
 	}
 }
@@ -38,7 +36,6 @@ class Book extends PrintEditionItem {
 	constructor(author, name, releaseDate, pagesCount) {
 		super(name, releaseDate, pagesCount);
 		this.author = author;
-		// this.state = 100;
 		this.type = "book";
 	}
 }
